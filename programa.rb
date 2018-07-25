@@ -5,7 +5,7 @@ def main
     case menu_principal
     when 1 then generar_promedio
     when 2 then inasistencias_por_alumno
-    when 3 then alumnos_aprobados
+    when 3 then mostrar_alumnos_aprobados
     when 4 then exit
     end
     esperar
@@ -17,6 +17,13 @@ def menu_principal
                      'Contar la cantidad de inasistencias totales.',
                      'Mostrar los nombres de los alumnos aprobados',
                      'SALIR'], 'MENU PRINCIPAL')
+end
+
+def mostrar_alumnos_aprobados
+  limpiar_pantalla
+  imprimir_titulo 'Mostrar los nombres de los alumnos aprobados'
+  print 'Ingrese la nota miníma para aprobar:'
+  alumnos_aprobados(gets.chomp.to_i)
 end
 
 def generar_promedio
