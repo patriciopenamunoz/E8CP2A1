@@ -1,17 +1,5 @@
 require_relative 'lib/menu.rb'
 
-def main
-  loop do
-    case menu_principal
-    when 1 then generar_promedio
-    when 2 then mostrar_inasistencias
-    when 3 then mostrar_alumnos_aprobados
-    when 4 then exit
-    end
-    esperar
-  end
-end
-
 def menu_principal
   preguntar_listado(['Generar un archivo con el promedio de cada alumno.',
                      'Contar la cantidad de inasistencias totales.',
@@ -64,4 +52,12 @@ def obtener_alumnos
   end
 end
 
-main
+loop do
+  case menu_principal
+  when 1 then generar_promedio
+  when 2 then mostrar_inasistencias
+  when 3 then mostrar_alumnos_aprobados
+  when 4 then exit
+  end
+  esperar
+end
