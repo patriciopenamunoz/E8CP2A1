@@ -57,13 +57,11 @@ def sacar_promedio(arreglo)
 end
 
 def obtener_alumnos
-  alumnos = []
-  File.readlines('lib/notas.csv').each do |linea|
-    notas_raw = linea.split(', ').map(&:chomp)[1..linea.length]
-    notas = notas_raw.map(&:to_i)
-    alumnos.push(nombre: linea[0], notas: notas, notas_raw: notas_raw)
+  File.open('lib/notas.csv', 'r').readlines.map do |linea|
+    linea = linea.split(', ').map(&:chomp)
+    notas = linea[1..linea.size].map(&:to_i)
+    Hash(nombre: linea[0], notas: notas, notas_raw: linea[1..linea.size])
   end
-  alumnos
 end
 
 main
