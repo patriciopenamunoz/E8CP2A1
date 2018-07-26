@@ -26,10 +26,13 @@ def generar_promedio
   limpiar_pantalla
   ruta = 'export/listado_promedios.txt'
   f = File.open(ruta, 'w')
-  obtener_alumnos.each { |v| f.puts "#{v[:nombre]}: #{sacar_media(v[:notas])}" }
+  s = ''
+  obtener_alumnos.each { |v| s << "#{v[:nombre]}: #{sacar_media(v[:notas])}\n" }
+  f.puts s
   f.close
   imprimir_titulo 'Exportador de promedios'
   imprimir_anuncio "Promedio generado en '#{ruta}'"
+  puts "\n#{s}"
 end
 
 def alumnos_aprobados(nota_min = 5)
