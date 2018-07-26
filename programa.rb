@@ -11,7 +11,8 @@ def mostrar_alumnos_aprobados
   limpiar_pantalla
   imprimir_titulo 'Mostrar los nombres de los alumnos aprobados'
   print 'Ingrese la nota miníma para aprobar:'
-  alumnos_aprobados(gets.chomp.to_i)
+  min = gets.chomp
+  alumnos_aprobados(min == '' ? 5 : min.to_i)
 end
 
 def mostrar_inasistencias
@@ -24,10 +25,9 @@ end
 def generar_promedio
   limpiar_pantalla
   ruta = 'export/listado_promedios.txt'
-  alumnos = obtener_alumnos
-  file = File.open(ruta, 'w')
-  alumnos.each { |v| file.puts "#{v[:nombre]}: #{sacar_promedio(v[:notas])}" }
-  file.close
+  f = File.open(ruta, 'w')
+  obtener_alumnos.each { |v| f.puts "#{v[:nombre]}: #{sacar_media(v[:notas])}" }
+  f.close
   imprimir_titulo 'Exportador de promedios'
   imprimir_anuncio "Promedio generado en '#{ruta}'"
 end
@@ -35,12 +35,12 @@ end
 def alumnos_aprobados(nota_min = 5)
   limpiar_pantalla
   alumnos = obtener_alumnos
-  aprobados = alumnos.select { |v| sacar_promedio(v[:notas]) >= nota_min }
+  aprobados = alumnos.select { |v| sacar_media(v[:notas]) >= nota_min }
   imprimir_titulo 'Listado de alumnos aprobados:'
-  aprobados.each { |v| puts "#{v[:nombre]}: #{sacar_promedio(v[:notas])}\n" }
+  aprobados.each { |v| puts "#{v[:nombre]}: #{sacar_media(v[:notas])}\n" }
 end
 
-def sacar_promedio(arreglo)
+def sacar_media(arreglo)
   (arreglo.sum / arreglo.length.to_f).round(2)
 end
 
